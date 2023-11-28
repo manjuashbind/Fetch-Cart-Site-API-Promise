@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Shop</title>
+    <link rel="icon" type="image" href="./images/cart5.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body class="bg-light" >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><img class="shadow" src="./images/cart5.jpg" style="width: 120px;" alt=""></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-4 mb-lg-0 fw-medium fs-5">
+              <li class="nav-item ms-3">
+                <a class="nav-link active text-danger me-2" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item ms-3">
+                <a class="nav-link text-danger " href="#">Login</a>
+              </li>
+              <li class="nav-item ms-3">
+                <a class="nav-link text-danger " href="#"><i class="fa-solid fa-cart-shopping"></i>cart</a>
+              </li>
+              <li class="nav-item ms-3">
+                <a class="nav-link text-danger " href="#"><i class="fa-solid fa-user"></i></a>
+              </li>
+              
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-danger fw-medium" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <hr class="w-75 mx-auto text-danger border border-1 border-danger bg-danger ">
+      <div class="container">
+        <div class="row ">
+          <div class="col mx-auto">
+            <img src="./images/poster2.avif"  class="img-fluid " style="max-height: 25rem; width: 80rem; object-fit:cover;" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div class="container" >
+        <div id="result" class="row row-cols-lg-3 row-cols-xl-3 mt-3 lh-1 ">
+            
+        </div>
+      </div>
+
+    
+</body>
+
+<script>
+
+fetch("https://dummyjson.com/carts")
+
+.then(data=>data.json()) 
+.then(data=>{console.log(data)
+    // const cartsArray=data.carts;
+    // displayCarts(cartsArray)
+    displayCarts(data)
+})
+//in dummy .json data is not array of object it is object of array
+//so after passing the object call the key in which the array is situated 
+//ie: data is the object and inside data, select the key "carts"(in json data in console) in which the array is situated eg:data.carts
+function displayCarts(data){
+    
+    for(i of data.carts){ 
+        for(j of i.products){
+        output=`<div class="col mt-2 " >
+                <div class="card  shadow mx-auto border-0 rounded-2" style="width: 18rem;" >
+                    <img src="${j.thumbnail}" class="card-img-top img-fluid rounded-3 w-75 mx-auto mt-2 "  style="max-height:200px; max-width=200px; min-height:200px; object-fit:contain; " alt="...">
+                    <div class="card-body fw-medium text-center ">
+                      <h5 class="card-title text-primary " style="height:3rem">${j.title}</h5>
+                      <p class="card-text">Id -${j.id} </p>
+                      <p class="card-text">Price -Rs ${j.price}/- </p>
+                     <p class="card-text">Qty -${j.quantity} </p>
+                      <p class="card-text">Total Price- Rs ${j.total}/-</p>
+                      <p class="card-text">Discount -${j.discountPercentage}% </p>
+                     <p class="card-text text-danger fs-5">Discount price - Rs ${j.discountedPrice}/- </p>
+                      <a href="#" class="btn btn-danger fw-medium">Add to Cart</a>
+                    </div>
+                  </div>            
+            </div>`
+                  
+            result.innerHTML+=output;     
+    }
+    
+}
+
+}
+</script>
+</html>
